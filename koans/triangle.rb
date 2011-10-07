@@ -15,10 +15,16 @@
 #
 def triangle(a, b, c)
   # WRITE THIS CODE
+  #
+  [a, b, c].each {|item|
+    raise TriangleError, "Invalid length for a side of a triangle" if item <= 0
+    raise TriangleError, "2 equal sides must be longer than the shorted side" if (a == b and a < c) or (b == c and a > b) or (a == c and b > a)
+  } 
+
   return :equilateral if is_equilateral?(a, b, c)
   return :isosceles if is_isosceles?(a, b, c)
   return :scalene if is_scalene?(a, b, c)
-  raise "Unknown triangle"
+  raise TriangleError, "Unknown or invalid triangle"
 end
 
 def is_equilateral?(a, b, c)
