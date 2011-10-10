@@ -31,6 +31,26 @@ require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 
 def score(dice)
   # You need to write this method
+  return 0 if dice.empty?
+
+  tally = Hash.new(0)
+  dice.each {|roll|
+    next if roll < 1 or roll > 6
+    tally[roll] += 1
+  }
+
+  score = 0
+  tally.each {|key, value|
+    if value >= 3
+      score += (key == 1) ? 1000 : key * 100 
+      value -= 3
+    end
+
+    # value should be less than 3 when we reach here
+    score += value * 100 if key == 1
+    score += value * 50 if key == 5
+  }
+  return score
 end
 
 class AboutScoringProject < EdgeCase::Koan
