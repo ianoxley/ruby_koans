@@ -2,9 +2,24 @@ require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 
 # Implement a DiceSet Class here:
 #
-# class DiceSet
-#   code ...
-# end
+class DiceSet
+  attr_reader :values
+ 
+  def initialize()
+    @random = Random.new
+    @values = Array.new 
+  end
+
+  def roll(number_of_rolls)
+    if @values.size > 0
+      @values = Array.new
+    end
+    # Generate a random number and add it to @values
+    number_of_rolls.times do 
+      @values.push(@random.rand(1..6))
+    end
+  end
+end
 
 class AboutDiceProject < EdgeCase::Koan
   def test_can_create_a_dice_set
@@ -36,9 +51,13 @@ class AboutDiceProject < EdgeCase::Koan
 
     dice.roll(5)
     first_time = dice.values
+    puts first_time.to_s
 
     dice.roll(5)
     second_time = dice.values
+    puts second_time.to_s
+    puts 'checking: '
+    puts first_time == second_time
 
     assert_not_equal first_time, second_time,
       "Two rolls should not be equal"
