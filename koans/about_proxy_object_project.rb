@@ -33,6 +33,7 @@ class Proxy
 
   def number_of_times_called(method_name)
     tmp = @messages.find_all {|m| m == method_name }
+    tmp.size
   end
 end
 
